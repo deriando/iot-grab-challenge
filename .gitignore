@@ -4,6 +4,7 @@
 ### custom ###
 webpage-copy/
 .vscode
+test/
 
 ### Flask ###
 instance/*
