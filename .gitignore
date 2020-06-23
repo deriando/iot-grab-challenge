@@ -5,6 +5,7 @@
 webpage-copy/
 .vscode
 test/
+node_modules
 
 ### Flask ###
 instance/*
