@@ -9,8 +9,8 @@ telegramNotif('test', 'body')
 def getTelemetry():
     with app.app_context():
         teleData = telemetry.query.filter_by(id=1).all()
-        teleSchema = telemetrySchema(many=True)
-        result = teleSchema.dumps(teleData)
+        teleSchema = telemetrySchema(many=True) # used marshmallow's schema
+        result = teleSchema.dumps(teleData) # dumps json
         #return {'data': result}
         return jsonify({'data': result})
 
