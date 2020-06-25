@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 
 @app.route("/get/telemetry")
 def getTelemetry():
-    for i in model.telemetry.query.count():
+    for i in telemetry.query.count():
         id = telemetry.query.filter_by(id=i).first()
 
 
