@@ -1,18 +1,23 @@
 from flask import Flask, render_template, jsonify
-from models import *
 from notifications import telegramNotif
 import json
+from model import telemetrySchema, telemetry, db
 
-telegramNotif('test', 'body')
+# flask config
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://iotuser:iotpassword@127.0.0.1:3306/iotdatabase"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db.init_app(app)
 
+# web config
 @app.route("/get/telemetry")
 def getTelemetry():
     with app.app_context():
         teleData = telemetry.query.filter_by(id=1).all()
         teleSchema = telemetrySchema(many=True) # used marshmallow's schema
         result = teleSchema.dumps(teleData) # dumps json
-        #return {'data': result}
-        return jsonify({'data': result})
+        #return teleData
+        #return jsonify({'data': result})
 
 @app.route("/tables.html")
 def tables():
@@ -26,5 +31,5 @@ def index2():
 def index():
     return render_template('index.html')
 
-#print(getTelemetry())
+#print(len(getTelemetry()))
 #app.run(debug=True)
