@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class iotapp(db.Model):
     __tablename__ = "iotapp"
     id = db.Column(INTEGER, primary_key=True, nullable=False)
@@ -23,8 +24,8 @@ class iotapp(db.Model):
     seconds = db.Column(INTEGER)
     speed = db.Column(DOUBLE)
     speedkmhour = db.Column(DOUBLE)
-    def __init__(self, datetime_value, timestamp_value, datetimestart_value, bookingid, bookingidwithtime, accuracy, bearing, 
-    acceleration_x, acceleration_y, acceleration_z, gyro_x, gyro_y, gyro_z, seconds, speed, speedkmhour):
+    def __init__(self, datetime_value, timestamp_value, datetimestart_value, bookingid, bookingidwithtime, accuracy, bearing,
+                 acceleration_x, acceleration_y, acceleration_z, gyro_x, gyro_y, gyro_z, seconds, speed, speedkmhour):
         self.datetime_value = datetime_value
         self.timestamp_value = timestamp_value
         self.datetimestart_value = datetimestart_value
@@ -40,7 +41,7 @@ class iotapp(db.Model):
         self.gyro_z = gyro_z
         self.seconds = seconds
         self.speed = speed
-        self.speedkmhour = speedkmhour 
+        self.speedkmhour = speedkmhour
 
 
 class iotappSchema(Schema):
@@ -78,11 +79,12 @@ class telemetry(db.Model):
     seconds = db.Column(INTEGER)
     speed = db.Column(DOUBLE)
     speedkmhour = db.Column(DOUBLE)
-    
+
     '''
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
     '''
+
 
 class telemetrySchema(Schema):
     id = fields.Int()
