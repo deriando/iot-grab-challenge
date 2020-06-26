@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 from notifications import telegramNotif
 import json
-from model import telemetrySchema, telemetry, db
+from model import iotapp, iotappSchema, db
 
 # flask config
 app = Flask(__name__)
@@ -10,14 +10,14 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 # web config
-@app.route("/get/telemetry")
+@app.route("/get/iot")
 def getTelemetry():
     with app.app_context():
-        teleData = telemetry.query.filter_by(id=1).all()
-        teleSchema = telemetrySchema(many=True) # used marshmallow's schema
-        result = teleSchema.dumps(teleData) # dumps json
-        #return teleData
-        #return jsonify({'data': result})
+        iotData = iotapp.query.order_by(iotapp.datetime_value.desc()).limit(3).all()
+        iotSchema = iotappSchema(many=True) # used marshmallow's schema
+        result = iotSchema.dumps(iotData) # dumps json
+        #return result
+        return jsonify(result)
 
 @app.route("/tables.html")
 def tables():
@@ -31,5 +31,5 @@ def index2():
 def index():
     return render_template('index.html')
 
-#print(len(getTelemetry()))
-#app.run(debug=True)
+#print(getTelemetry())
+app.run(debug=True)
