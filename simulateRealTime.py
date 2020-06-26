@@ -1,9 +1,8 @@
-import socket
-import random
 from flask import Flask
 from sqlalchemy.sql.expression import func
 from model import iotapp, db, telemetry
 from datetime import datetime, timedelta
+import time, random
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://iotuser:iotpassword@127.0.0.1:3306/iotdatabase"
@@ -43,5 +42,12 @@ def insertIOTApp(teleData):
 
 
 if __name__ == "__main__":
-    insertIOTApp(getRandomBookingIDs(3))
-    #print(type(getRandomBookingIDs(3)))
+    try:
+        while True:
+            insertIOTApp(getRandomBookingIDs(3))
+            current_time = datetime.now().strftime("%H:%M:%S")
+            print(f"New records inserted at {current_time}")
+            time.sleep(random.randrange(2,10))
+
+    except KeyboardInterrupt:
+        print('Stopped')
