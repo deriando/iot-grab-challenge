@@ -6,7 +6,7 @@ notif = apprise.Apprise()
 
 
 def telegramNotif(title, body):
-    notif.add("tgram://1166066903:AAEfKq6lq5RkOmffXsSpkOzEyJ-KKzKYAGE")
+    notif.add("tgram://[bottokentoken]")
     notif.notify(
         title=title,
         body=body
